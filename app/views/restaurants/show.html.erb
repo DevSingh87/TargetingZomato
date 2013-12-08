@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span12">
+  <div class="row">
+      <div class="span6">
+<p>
+  <b>Name:</b>
+  <%= @restaurant.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @restaurant.address %>
+</p>
+
+<p>
+  <b>Cuisines:</b>
+  <%= @restaurant.cuisines %>
+</p>
+
+<p>
+  <b>Opening hours:</b>
+  <%= @restaurant.opening_hours %>
+</p>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@restaurant.latitude}%2C#{@restaurant.longitude}" %>  
+
+</div>
+      <div class="span6">
+<h3>Nearby Restaurants</h3>  
+<ul>  
+<% for restaurant in @restaurant.nearbys(10) %>  
+  <li><%= link_to restaurant.name+' - '+restaurant.address, restaurant %> -  
+    (<%= restaurant.distance.round(2) %> km)</li>  
+<% end %>  
+</ul> 
+</div>
+    </div>
+  </div>
+</div>
+<h3>User Reviews</h3>
+<% if user_signed_in? %> <!-- To avoid throwing an exception if no user is signed in -->
+    <% user_id = current_user.id %>
+<% else %>
+    <% user_id = -1 %>
+<% end %>  
+
+<%= form_for [@restaurant, Comment.new] do |f| %>
+  
+  <% if @restaurant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this status from being saved:</h2>
+
+      <ul>
+      <% @restaurant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
+	<%= f.hidden_field :user_id, :value => user_id %>
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<% @comments.each do |comm| %>
+<div class="comment">
+  <strong><%= comm.user.user_name %></strong>
+  <p><%= comm.comment %></p>
+  <div class="meta">
+    <%= link_to time_ago_in_words(comm.created_at) + " ago" %> 
+   
+  </div>
+</div>
+<% end %>
+
+
+

@@ -1,0 +1,8 @@
+TargetingZomato is an small applicaiton beased on Ruby On Rails 3.2.13
+
+It has some features like::
+ - Add Restaurants
+ - Serach Restaurants nearby your desired locations
+ - Google Map
+ - Authentication System
+ - User can comment on restaurants
