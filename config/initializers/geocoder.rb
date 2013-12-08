@@ -16,6 +16,6 @@ Geocoder.configure(
   # :always_raise => [],
 
   # calculation options
-  :units     => :km,       # :mi for kilometers or :mi for miles
+  # :units     => :mi,       # :km for kilometers or :mi for miles
   # :distances => :linear    # :spherical or :linear
 )

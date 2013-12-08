@@ -30,7 +30,7 @@
 <ul>  
 <% for restaurant in @restaurant.nearbys(10) %>  
   <li><%= link_to restaurant.name+' - '+restaurant.address, restaurant %> -  
-    (<%= restaurant.distance.round(2) %> km)</li>  
+    (<%= restaurant.distance.round(2) %> miles)</li>  
 <% end %>  
 </ul> 
 </div>
