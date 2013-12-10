@@ -82,9 +82,9 @@
 <% end %>
 <% @comments.each do |comm| %>
 <div class="comment">
- <div class="stars"><i class="star star-<%= comm.rating %>"></i>	 
+   <strong><%= comm.user.user_name %></strong>
+  <div class="stars"><i class="star star-<%= comm.rating %>"></i>	 
   <%=pluralize comm.rating, "Star" %></div>
-  <strong><%= comm.user.user_name %></strong>
   <p><%= comm.comment %></p>
   <div class="meta">
     <%= link_to time_ago_in_words(comm.created_at) + " ago" %> 
