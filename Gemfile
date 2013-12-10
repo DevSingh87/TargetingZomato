@@ -43,5 +43,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'geocoder'
-gem 'letsrate'
+
 gem 'devise'

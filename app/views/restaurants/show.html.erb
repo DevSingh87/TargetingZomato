@@ -28,9 +28,9 @@
       <div class="span6">
 <h3>Nearby Restaurants</h3>  
 <ul>  
-<% for restaurant in @restaurant.nearbys(10) %>  
+<% @restaurant.nearbys(10).each do |restaurant| %>  
   <li><%= link_to restaurant.name+' - '+restaurant.address, restaurant %> -  
-    (<%= restaurant.distance.round(2) %> miles)</li>  
+    (<%= restaurant.distance.to_f.round(2) %> km)</li>  
 <% end %>  
 </ul> 
 </div>
@@ -45,7 +45,19 @@
 <% end %>  
 
 <%= form_for [@restaurant, Comment.new] do |f| %>
-  
+  <span class="rating">
+ <%= f.radio_button :rating, 5, class: 'rating-input' %>
+    <label for="comment_rating_5" class="rating-star"></label>
+  <%= f.radio_button :rating, 4, class: 'rating-input' %>
+    <label for="comment_rating_4" class="rating-star"></label>
+   <%= f.radio_button :rating, 3, class: 'rating-input' %>
+    <label for="comment_rating_3" class="rating-star"></label>
+   <%= f.radio_button :rating, 2, class: 'rating-input' %>
+    <label for="comment_rating_2" class="rating-star"></label>
+   		 <%= f.radio_button :rating, 1, class: 'rating-input' %>
+    <label for="comment_rating_1" class="rating-star"></label>
+	
+</span>
   <% if @restaurant.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this status from being saved:</h2>
@@ -70,6 +82,8 @@
 <% end %>
 <% @comments.each do |comm| %>
 <div class="comment">
+ <div class="stars"><i class="star star-<%= comm.rating %>"></i>	 
+  <%=pluralize comm.rating, "Star" %></div>
   <strong><%= comm.user.user_name %></strong>
   <p><%= comm.comment %></p>
   <div class="meta">

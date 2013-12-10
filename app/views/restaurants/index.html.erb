@@ -14,19 +14,21 @@
     <th>Address</th>
     <th>Cuisines</th>
     <th>Opening hours</th>
-       <th></th>
+       <th>Rating</th>
+	   <th></th>
     <th></th>
     <th></th>
   </tr>
-
+ 
 <% @restaurants.each do |restaurant| %>
   <tr>
     <td><%= restaurant.name %></td>
     <td><%= restaurant.address %></td>
     <td><%= restaurant.cuisines %></td>
     <td><%= restaurant.opening_hours %></td>
-    <td><%= link_to 'Show', restaurant %></td>
-    <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
+	 <td><i class="star star-<%= restaurant.comments.calculate(:average, 'rating').to_i %>"></i> <%= link_to restaurant.comments.count, restaurant %> Reviews</td>
+	  <td><%= link_to 'Show', restaurant %></td>
+     <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
     <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
